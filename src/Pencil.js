@@ -72,6 +72,8 @@ class Pencil {
   }
 
   erase(word) {
+    this._validateEraserWord(word);
+    
     const lastIndex = this.paper.lastIndexOf(word);
     if (lastIndex === -1) return;
 
@@ -80,6 +82,12 @@ class Pencil {
       this.paper.slice(0, lastIndex) +
       spaces +
       this.paper.slice(lastIndex + word.length);
+  }
+
+  _validateEraserWord(word) {
+    if (typeof word !== "string") {
+      throw new Error("Word to erase must be a string");
+    }
   }
 }
 
