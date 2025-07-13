@@ -70,6 +70,17 @@ class Pencil {
       this.length -= 1;
     }
   }
+
+  erase(word) {
+    const lastIndex = this.paper.lastIndexOf(word);
+    if (lastIndex === -1) return;
+
+    const spaces = " ".repeat(word.length);
+    this.paper =
+      this.paper.slice(0, lastIndex) +
+      spaces +
+      this.paper.slice(lastIndex + word.length);
+  }
 }
 
 module.exports = Pencil;
