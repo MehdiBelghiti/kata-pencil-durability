@@ -1,6 +1,12 @@
 class Pencil {
+  constructor() {
+    this.paper = "";
+  }
+  write(text) {
+    this.paper = text;
+  }
   readPaper() {
-    return "";
+    return this.paper;
   }
 }
 
