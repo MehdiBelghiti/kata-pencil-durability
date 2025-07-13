@@ -211,4 +211,22 @@ describe("Pencil: Eraser Durability", () => {
 
     expect(pencil.getEraserDurability()).toBe(6);
   });
+
+  test("erasing whitespace does not reduce eraser durability", () => {
+    const pencil = new Pencil({ eraserDurability: 10 });
+
+    pencil.write("hello   world");
+    pencil.erase("   ");
+
+    expect(pencil.getEraserDurability()).toBe(10);
+  });
+
+  test("erasing whitespace with non-whitespace characters reduces eraser durability by non-whitspace character's number only", () => {
+    const pencil = new Pencil({ eraserDurability: 10 });
+
+    pencil.write("hello   world");
+    pencil.erase("   world");
+
+    expect(pencil.getEraserDurability()).toBe(5);
+  });
 });
