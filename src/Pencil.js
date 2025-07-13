@@ -1,3 +1,7 @@
+const UPPERCASE_COST = 2;
+const LOWERCASE_COST = 1;
+const WHITESPACE_OTHERS_COST = 0;
+
 class Pencil {
   constructor({ durability = 100, length = 5, eraserDurability = 100 } = {}) {
     this._validateDurability(durability);
@@ -10,16 +14,20 @@ class Pencil {
     this.eraserDurability = eraserDurability;
   }
 
-  _validateLength(length) {
-    if (typeof length !== "number" || length < 0) {
-      throw new Error("Length must be a non-negative number");
-    }
+  getDurability() {
+    return this.durability;
   }
 
-  _validateDurability(durability) {
-    if (typeof durability !== "number" || durability < 0) {
-      throw new Error("Durability must be a non-negative number");
-    }
+  getLength() {
+    return this.length;
+  }
+
+  getEraserDurability() {
+    return this.eraserDurability;
+  }
+
+  readPaper() {
+    return this.paper;
   }
 
   write(text) {
@@ -29,45 +37,6 @@ class Pencil {
 
     const written = this._applyDurabilityAndWrite(text);
     this.paper += written;
-  }
-
-  _applyDurabilityAndWrite(text) {
-    let result = "";
-
-    for (const char of text) {
-      const cost = this._getCharCost(char);
-
-      if (this.durability < cost) {
-        result += " ";
-      } else {
-        result += char;
-        this.durability -= cost;
-      }
-    }
-
-    return result;
-  }
-
-  _getCharCost(char) {
-    if (/[A-Z]/.test(char)) return 2;
-    if (/[a-z]/.test(char)) return 1;
-    return 0; // whitespace and others
-  }
-
-  _isValidText(text) {
-    return typeof text === "string";
-  }
-
-  getDurability() {
-    return this.durability;
-  }
-
-  getEraserDurability() {
-    return this.eraserDurability;
-  }
-
-  readPaper() {
-    return this.paper;
   }
 
   sharpen() {
@@ -95,10 +64,43 @@ class Pencil {
     this.paper = newPaper.join("");
   }
 
+  _validateLength(length) {
+    if (typeof length !== "number" || length < 0) {
+      throw new Error("Length must be a non-negative number");
+    }
+  }
+
+  _validateDurability(durability) {
+    if (typeof durability !== "number" || durability < 0) {
+      throw new Error("Durability must be a non-negative number");
+    }
+  }
+
   _validateEraserWord(word) {
     if (typeof word !== "string") {
       throw new Error("Word to erase must be a string");
     }
+  }
+
+  _applyDurabilityAndWrite(text) {
+    return [...text]
+      .map((char) => {
+        const cost = this._getCharCost(char);
+        if (this.durability < cost) return " ";
+        this.durability -= cost;
+        return char;
+      })
+      .join("");
+  }
+
+  _getCharCost(char) {
+    if (/[A-Z]/.test(char)) return UPPERCASE_COST;
+    if (/[a-z]/.test(char)) return LOWERCASE_COST;
+    return WHITESPACE_OTHERS_COST;
+  }
+
+  _isValidText(text) {
+    return typeof text === "string";
   }
 }
 

@@ -120,19 +120,19 @@ describe("Pencil: Sharpening", () => {
 
     pencil.sharpen();
     expect(pencil.getDurability()).toBe(5);
-    expect(pencil.length).toBe(1);
+    expect(pencil.getLength()).toBe(1);
 
     // second sharpening will put it at 0 length
     pencil.write("TEXT");
     pencil.sharpen();
     expect(pencil.getDurability()).toBe(5);
-    expect(pencil.length).toBe(0);
+    expect(pencil.getLength()).toBe(0);
 
     // no more sharpening possible
     pencil.write("TEXT");
     pencil.sharpen();
     expect(pencil.getDurability()).toBeLessThan(5);
-    expect(pencil.length).toBe(0);
+    expect(pencil.getLength()).toBe(0);
   });
 
   test("initializing pencil with negative length should throw", () => {
