@@ -283,4 +283,13 @@ describe("Edit feature", () => {
 
     expect(pencil.readPaper()).toBe("An on    a day keeps the doctor away");
   });
+
+  test("calling edit without prior erase does nothing", () => {
+    const pencil = new Pencil();
+    pencil.write("Hello world");
+
+    pencil.edit("oops");
+
+    expect(pencil.readPaper()).toBe("Hello world");
+  });
 });
