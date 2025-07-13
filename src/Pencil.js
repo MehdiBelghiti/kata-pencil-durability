@@ -73,8 +73,10 @@ class Pencil {
   }
 
   edit(newText) {
-    if(this.lastErasedIndex === -1)  return;
-    
+    this._validateEditing(newText);
+
+    if (this.lastErasedIndex === -1) return;
+
     let paperArr = this.paper.split("");
     let i = this.lastErasedIndex;
 
@@ -110,6 +112,11 @@ class Pencil {
     if (typeof word !== "string") {
       throw new Error("Word to erase must be a string");
     }
+  }
+
+  _validateEditing(newText) {
+    if (typeof newText !== "string")
+      throw new Error("Text to insert must be a string");
   }
 
   _applyDurabilityAndWrite(text) {
