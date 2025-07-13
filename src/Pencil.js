@@ -3,6 +3,7 @@ class Pencil {
     this._validateDurability(durability);
     this.paper = "";
     this.durability = durability;
+    this.initialDurability = durability;
   }
 
   _validateDurability(durability) {
@@ -53,6 +54,10 @@ class Pencil {
 
   readPaper() {
     return this.paper;
+  }
+
+  sharpen() {
+    this.durability = this.initialDurability;
   }
 }
 
