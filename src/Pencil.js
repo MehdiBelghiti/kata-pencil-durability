@@ -81,6 +81,8 @@ class Pencil {
 
       if (paperArr[i] === " ") {
         paperArr[i] = char;
+      } else {
+        paperArr[i] = "@";
       }
 
       i++;
