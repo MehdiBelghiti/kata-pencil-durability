@@ -177,4 +177,13 @@ describe("Pencil: Eraser", () => {
       "Buffalo Bill chased      through the hills with     "
     );
   });
+
+  test("erasing a word not present should leave paper unchanged", () => {
+    const pencil = new Pencil();
+    pencil.write("This is a test sentence.");
+
+    pencil.erase("notpresent");
+
+    expect(pencil.readPaper()).toBe("This is a test sentence.");
+  });
 });
