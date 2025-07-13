@@ -186,4 +186,13 @@ describe("Pencil: Eraser", () => {
 
     expect(pencil.readPaper()).toBe("This is a test sentence.");
   });
+
+  test("erasing a non-string value should throw an error", () => {
+    const pencil = new Pencil();
+    pencil.write("Hello World");
+
+    expect(() => pencil.erase(123)).toThrow("Word to erase must be a string");
+    expect(() => pencil.erase(null)).toThrow("Word to erase must be a string");
+    expect(() => pencil.erase({})).toThrow("Word to erase must be a string");
+  });
 });
