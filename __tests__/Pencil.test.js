@@ -134,4 +134,20 @@ describe("Pencil: Sharpening", () => {
     expect(pencil.getDurability()).toBeLessThan(5);
     expect(pencil.length).toBe(0);
   });
+
+  test("initializing pencil with negative length should throw", () => {
+    expect(() => {
+      new Pencil({ durability: 10, length: -1 });
+    }).toThrow("Length must be a non-negative number");
+  });
+
+  test("Initializing pencil with non number length should throw", () => {
+    expect(() => {
+      new Pencil({ durability: 10, length: "long" });
+    }).toThrow("Length must be a non-negative number");
+
+    expect(() => {
+      new Pencil({ durability: 10, length: null });
+    }).toThrow("Length must be a non-negative number");
+  });
 });
