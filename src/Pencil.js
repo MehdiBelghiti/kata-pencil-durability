@@ -39,9 +39,7 @@ class Pencil {
   }
 
   write(text) {
-    if (!this._isValidText(text)) {
-      throw new Error("Text must be a string");
-    }
+    this._validateString(text, "Text must be a string");
 
     const written = this._applyDurabilityAndWrite(text);
     this.paper += written;
@@ -126,10 +124,6 @@ class Pencil {
     if (/[A-Z]/.test(char)) return UPPERCASE_COST;
     if (/[a-z]/.test(char)) return LOWERCASE_COST;
     return WHITESPACE_OTHERS_COST;
-  }
-
-  _isValidText(text) {
-    return typeof text === "string";
   }
 }
 
