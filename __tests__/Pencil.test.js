@@ -1,6 +1,6 @@
 const Pencil = require("../src/Pencil");
 
-describe("Pencil", () => {
+describe("Pencil writing", () => {
   test("paper starts empty", () => {
     const pencil = new Pencil();
     expect(pencil.readPaper()).toBe("");
@@ -36,7 +36,9 @@ describe("Pencil", () => {
     expect(() => pencil.write(true)).toThrow("Text must be a string");
     expect(() => pencil.write(false)).toThrow("Text must be a string");
   });
+});
 
+describe("Pencil durability", () => {
   test("writing lowercase letters reduces durability by 1 per character", () => {
     const pencil = new Pencil({ durability: 4 });
 
