@@ -89,3 +89,26 @@ describe("Pencil durability", () => {
     );
   });
 });
+
+describe("Pencil: Sharpening", () => {
+  test("sharpening restores initial durability", () => {
+    const pencil = new Pencil({ durability: 4 });
+
+    pencil.write("Text");
+    expect(pencil.getDurability()).toBe(0);
+
+    pencil.sharpen();
+
+    expect(pencil.getDurability()).toBe(4);
+  });
+  test("sharpening does not change paper content", () => {
+    const pencil = new Pencil({ durability: 4 });
+
+    pencil.write("Text");
+    const initialPaper = pencil.readPaper();
+
+    pencil.sharpen();
+
+    expect(pencil.readPaper()).toBe(initialPaper);
+  });
+});
