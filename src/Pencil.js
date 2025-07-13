@@ -18,13 +18,18 @@ class Pencil {
     let result = "";
 
     for (const char of text) {
-      if (this.durability <= 0 && /[a-z]/.test(char)) {
+      const isLowercase = /[a-z]/.test(char);
+      const isUppercase = /[A-Z]/.test(char);
+
+      let cost = 0;
+      if (isLowercase) cost = 1;
+      else if (isUppercase) cost = 2;
+
+      if (this.durability < cost) {
         result += " ";
       } else {
         result += char;
-        if (/[a-z]/.test(char)) {
-          this.durability -= 1;
-        }
+        this.durability -= cost;
       }
     }
 
