@@ -18,4 +18,11 @@ describe("Pencil", () => {
     pencil.write(" world");
     expect(pencil.readPaper()).toBe("hello world");
   });
+
+  test("writing an empty string leaves paper unchanged", () => {
+    const pencil = new Pencil();
+    pencil.write("hello");
+    pencil.write("");
+    expect(pencil.readPaper()).toBe("hello");
+  });
 });
