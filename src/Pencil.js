@@ -57,8 +57,10 @@ class Pencil {
     for (let i = lastIndex + word.length - 1; i >= lastIndex; i--) {
       if (this.eraserDurability <= 0) break;
 
-      newPaper[i] = " ";
-      this.eraserDurability--;
+      if (newPaper[i] !== " ") {
+        newPaper[i] = " ";
+        this.eraserDurability--;
+      }
     }
 
     this.paper = newPaper.join("");
