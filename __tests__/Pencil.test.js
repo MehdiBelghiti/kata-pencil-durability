@@ -196,3 +196,19 @@ describe("Pencil: Eraser", () => {
     expect(() => pencil.erase({})).toThrow("Word to erase must be a string");
   });
 });
+
+describe("Pencil: Eraser Durability", () => {
+  test("eraser durability defaults to 100", () => {
+    const pencil = new Pencil();
+    expect(pencil.getEraserDurability()).toBe(100);
+  });
+
+  test("eraser durability decreases by 1 per character erased", () => {
+    const pencil = new Pencil({ eraserDurability: 10 });
+
+    pencil.write("Buffalo Bill");
+    pencil.erase("Bill");
+
+    expect(pencil.getEraserDurability()).toBe(6);
+  });
+});
