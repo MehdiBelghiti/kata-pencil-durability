@@ -3,7 +3,7 @@ class Pencil {
     this.paper = "";
   }
   write(text) {
-    this.paper = text;
+    this.paper += text;
   }
   readPaper() {
     return this.paper;
