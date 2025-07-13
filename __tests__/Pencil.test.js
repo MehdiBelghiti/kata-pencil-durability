@@ -165,4 +165,16 @@ describe("Pencil: Eraser", () => {
       "How much wood would a woodchuck chuck if a woodchuck could       wood?"
     );
   });
+
+  test("multiple erase calls remove earlier occurrences in reverse order", () => {
+    const pencil = new Pencil();
+    pencil.write("Buffalo Bill chased Bill through the hills with Bill");
+
+    pencil.erase("Bill");
+    pencil.erase("Bill");
+
+    expect(pencil.readPaper()).toBe(
+      "Buffalo Bill chased      through the hills with     "
+    );
+  });
 });
