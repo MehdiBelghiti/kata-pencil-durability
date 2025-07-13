@@ -1,7 +1,14 @@
 class Pencil {
   constructor({ durability = 100 } = {}) {
+    this._validateDurability(durability);
     this.paper = "";
     this.durability = durability;
+  }
+
+  _validateDurability(durability) {
+    if (typeof durability !== "number" || durability < 0) {
+      throw new Error("Durability must be a non-negative number");
+    }
   }
 
   write(text) {
