@@ -12,4 +12,10 @@ describe("Pencil", () => {
     expect(pencil.readPaper()).toBe("hello");
   });
 
+  test("writing multiple times appends text correctly", () => {
+    const pencil = new Pencil();
+    pencil.write("hello");
+    pencil.write(" world");
+    expect(pencil.readPaper()).toBe("hello world");
+  });
 });
