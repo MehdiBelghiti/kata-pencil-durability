@@ -25,4 +25,15 @@ describe("Pencil", () => {
     pencil.write("");
     expect(pencil.readPaper()).toBe("hello");
   });
+
+  test("writing non-string should throw", () => {
+    const pencil = new Pencil();
+
+    expect(() => pencil.write(123)).toThrow("Text must be a string");
+    expect(() => pencil.write({})).toThrow("Text must be a string");
+    expect(() => pencil.write(null)).toThrow("Text must be a string");
+    expect(() => pencil.write(undefined)).toThrow('Text must be a string');
+    expect(() => pencil.write(true)).toThrow("Text must be a string");
+    expect(() => pencil.write(false)).toThrow("Text must be a string");
+  });
 });
