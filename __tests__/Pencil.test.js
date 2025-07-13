@@ -32,8 +32,16 @@ describe("Pencil", () => {
     expect(() => pencil.write(123)).toThrow("Text must be a string");
     expect(() => pencil.write({})).toThrow("Text must be a string");
     expect(() => pencil.write(null)).toThrow("Text must be a string");
-    expect(() => pencil.write(undefined)).toThrow('Text must be a string');
+    expect(() => pencil.write(undefined)).toThrow("Text must be a string");
     expect(() => pencil.write(true)).toThrow("Text must be a string");
     expect(() => pencil.write(false)).toThrow("Text must be a string");
+  });
+
+  test("writing lowercase letters reduces durability by 1 per character", () => {
+    const pencil = new Pencil({ durability: 4 });
+
+    pencil.write("text");
+
+    expect(pencil.getDurability()).toBe(0);
   });
 });
