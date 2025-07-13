@@ -1,9 +1,10 @@
 class Pencil {
-  constructor({ durability = 100 } = {}) {
+  constructor({ durability = 100, length = 5 } = {}) {
     this._validateDurability(durability);
     this.paper = "";
     this.durability = durability;
     this.initialDurability = durability;
+    this.length = length;
   }
 
   _validateDurability(durability) {
@@ -57,7 +58,10 @@ class Pencil {
   }
 
   sharpen() {
-    this.durability = this.initialDurability;
+    if (this.length > 0) {
+      this.durability = this.initialDurability;
+      this.length -= 1;
+    }
   }
 }
 
