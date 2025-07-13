@@ -55,4 +55,22 @@ describe("Pencil durability", () => {
     expect(pencil.readPaper()).toBe(" \n\t ");
     expect(pencil.getDurability()).toBe(10);
   });
+
+  test("writing uppercase letters reduces durability by 2 each", () => {
+    const pencil = new Pencil({ durability: 4 });
+
+    pencil.write("AB");
+
+    expect(pencil.readPaper()).toBe("AB");
+    expect(pencil.getDurability()).toBe(0);
+  });
+
+  test("writing mixed case reduces durability correctly", () => {
+    const pencil = new Pencil({ durability: 10 });
+
+    pencil.write("aBcD");
+
+    expect(pencil.readPaper()).toBe("aBcD");
+    expect(pencil.getDurability()).toBe(4);
+  });
 });
