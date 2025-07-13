@@ -12,6 +12,7 @@ class Pencil {
     this.initialDurability = durability;
     this.length = length;
     this.eraserDurability = eraserDurability;
+    this.lastErasedIndex = -1;
   }
 
   getDurability() {
@@ -24,6 +25,10 @@ class Pencil {
 
   getEraserDurability() {
     return this.eraserDurability;
+  }
+
+  getLastErasedIndex() {
+    return this.lastErasedIndex;
   }
 
   readPaper() {
@@ -60,10 +65,29 @@ class Pencil {
       if (newPaper[i] !== " ") {
         newPaper[i] = " ";
         this.eraserDurability--;
+        this.lastErasedIndex = i;
       }
     }
 
     this.paper = newPaper.join("");
+  }
+
+  edit(newText) {
+    let paperArr = this.paper.split("");
+    let i = this.lastErasedIndex;
+
+    for (let char of newText) {
+      if (i >= paperArr.length) break;
+
+      if (paperArr[i] === " ") {
+        paperArr[i] = char;
+      }
+
+      i++;
+    }
+
+    this.paper = paperArr.join("");
+    this.lastErasedIndex = -1;
   }
 
   _validateLength(length) {
