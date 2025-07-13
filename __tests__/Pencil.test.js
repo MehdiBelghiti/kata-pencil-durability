@@ -292,4 +292,17 @@ describe("Edit feature", () => {
 
     expect(pencil.readPaper()).toBe("Hello world");
   });
+
+  test("editing with non-string should throw an error", () => {
+    const pencil = new Pencil();
+    pencil.write("Hello world");
+    pencil.erase("world");
+
+    expect(() => pencil.edit(123)).toThrow("Text to insert must be a string");
+    expect(() => pencil.edit(null)).toThrow("Text to insert must be a string");
+    expect(() => pencil.edit(undefined)).toThrow(
+      "Text to insert must be a string"
+    );
+    expect(() => pencil.edit({})).toThrow("Text to insert must be a string");
+  });
 });
