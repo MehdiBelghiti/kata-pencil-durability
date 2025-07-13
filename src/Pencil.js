@@ -73,6 +73,8 @@ class Pencil {
   }
 
   edit(newText) {
+    if(this.lastErasedIndex === -1)  return;
+    
     let paperArr = this.paper.split("");
     let i = this.lastErasedIndex;
 
