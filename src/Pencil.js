@@ -1,11 +1,13 @@
 class Pencil {
-  constructor({ durability = 100, length = 5 } = {}) {
+  constructor({ durability = 100, length = 5, eraserDurability = 100 } = {}) {
     this._validateDurability(durability);
     this._validateLength(length);
+
     this.paper = "";
     this.durability = durability;
     this.initialDurability = durability;
     this.length = length;
+    this.eraserDurability = eraserDurability;
   }
 
   _validateLength(length) {
@@ -60,6 +62,10 @@ class Pencil {
     return this.durability;
   }
 
+  getEraserDurability() {
+    return this.eraserDurability;
+  }
+
   readPaper() {
     return this.paper;
   }
@@ -73,15 +79,20 @@ class Pencil {
 
   erase(word) {
     this._validateEraserWord(word);
-    
+
     const lastIndex = this.paper.lastIndexOf(word);
     if (lastIndex === -1) return;
 
-    const spaces = " ".repeat(word.length);
-    this.paper =
-      this.paper.slice(0, lastIndex) +
-      spaces +
-      this.paper.slice(lastIndex + word.length);
+    let newPaper = this.paper.split("");
+
+    for (let i = lastIndex + word.length - 1; i >= lastIndex; i--) {
+      if (this.eraserDurability <= 0) break;
+
+      newPaper[i] = " ";
+      this.eraserDurability--;
+    }
+
+    this.paper = newPaper.join("");
   }
 
   _validateEraserWord(word) {
