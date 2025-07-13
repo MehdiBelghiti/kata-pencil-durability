@@ -229,4 +229,22 @@ describe("Pencil: Eraser Durability", () => {
 
     expect(pencil.getEraserDurability()).toBe(5);
   });
+
+  test("erasing more characters than eraser durability allows", () => {
+    const pencil = new Pencil({ eraserDurability: 3 });
+    pencil.write("Buffalo Bill");
+    pencil.erase("Bill");
+
+    expect(pencil.readPaper()).toBe("Buffalo B   ");
+    expect(pencil.getEraserDurability()).toBe(0);
+  });
+
+  test("eraser with zero durability should not erase anything", () => {
+    const pencil = new Pencil({ eraserDurability: 0 });
+    pencil.write("Buffalo Bill");
+    pencil.erase("Bill");
+
+    expect(pencil.readPaper()).toBe("Buffalo Bill");
+    expect(pencil.getEraserDurability()).toBe(0);
+  });
 });
