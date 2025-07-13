@@ -46,4 +46,13 @@ describe("Pencil durability", () => {
 
     expect(pencil.getDurability()).toBe(0);
   });
+
+  test("writing whitespace or newlines does not reduce durability", () => {
+    const pencil = new Pencil({ durability: 10 });
+
+    pencil.write(" \n\t ");
+
+    expect(pencil.readPaper()).toBe(" \n\t ");
+    expect(pencil.getDurability()).toBe(10);
+  });
 });
