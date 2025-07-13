@@ -265,4 +265,13 @@ describe("Edit feature", () => {
 
     expect(pencil.readPaper()).toBe("An onion a day keeps the doctor away");
   });
+
+  test("writing a longer word after an erase overwrites existing characters with @ when colliding", () => {
+    const pencil = new Pencil();
+    pencil.write("An apple a day keeps the doctor away");
+    pencil.erase("apple");
+    pencil.edit("artichoke");
+
+    expect(pencil.readPaper()).toBe("An artich@k@ay keeps the doctor away");
+  });
 });
