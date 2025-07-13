@@ -247,4 +247,11 @@ describe("Pencil: Eraser Durability", () => {
     expect(pencil.readPaper()).toBe("Buffalo Bill");
     expect(pencil.getEraserDurability()).toBe(0);
   });
+
+  test("attempting to erase a word that doesn't exist (including when paper is empty) should do nothing", () => {
+  const pencil = new Pencil({ eraserDurability: 10 });
+
+  expect(() => pencil.erase("missing")).not.toThrow();
+  expect(pencil.readPaper()).toBe("");
+});
 });
