@@ -274,4 +274,13 @@ describe("Edit feature", () => {
 
     expect(pencil.readPaper()).toBe("An artich@k@ay keeps the doctor away");
   });
+
+  test("writing a shorter word after an erase fills the space correctly", () => {
+    const pencil = new Pencil();
+    pencil.write("An apple a day keeps the doctor away");
+    pencil.erase("apple");
+    pencil.edit("on");
+
+    expect(pencil.readPaper()).toBe("An on    a day keeps the doctor away");
+  });
 });
