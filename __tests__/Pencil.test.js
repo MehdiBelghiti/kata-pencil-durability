@@ -73,4 +73,13 @@ describe("Pencil durability", () => {
     expect(pencil.readPaper()).toBe("aBcD");
     expect(pencil.getDurability()).toBe(4);
   });
+
+  test("stops writing when durability runs out", () => {
+    const pencil = new Pencil({ durability: 3 });
+
+    pencil.write("abcd");
+
+    expect(pencil.readPaper()).toBe("abc ");
+    expect(pencil.getDurability()).toBe(0);
+  });
 });
