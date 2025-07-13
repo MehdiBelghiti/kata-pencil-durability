@@ -151,3 +151,18 @@ describe("Pencil: Sharpening", () => {
     }).toThrow("Length must be a non-negative number");
   });
 });
+
+describe("Pencil: Eraser", () => {
+  test("erases the last occurrence of a word by replacing it with spaces", () => {
+    const pencil = new Pencil();
+    pencil.write(
+      "How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
+    );
+
+    pencil.erase("chuck");
+
+    expect(pencil.readPaper()).toBe(
+      "How much wood would a woodchuck chuck if a woodchuck could       wood?"
+    );
+  });
+});
