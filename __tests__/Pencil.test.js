@@ -82,4 +82,10 @@ describe("Pencil durability", () => {
     expect(pencil.readPaper()).toBe("abc ");
     expect(pencil.getDurability()).toBe(0);
   });
+
+  test("initializing pencil with negative point durability should throw", () => {
+    expect(() => new Pencil({ durability: -5 })).toThrow(
+      "Durability must be a non-negative number"
+    );
+  });
 });
