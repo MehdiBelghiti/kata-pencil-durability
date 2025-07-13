@@ -4,8 +4,11 @@ const WHITESPACE_OTHERS_COST = 0;
 
 class Pencil {
   constructor({ durability = 100, length = 5, eraserDurability = 100 } = {}) {
-    this._validateDurability(durability);
-    this._validateLength(length);
+    this._validateNumber(
+      durability,
+      "Durability must be a non-negative number"
+    );
+    this._validateNumber(length, "Length must be a non-negative number");
 
     this.paper = "";
     this.durability = durability;
@@ -52,7 +55,7 @@ class Pencil {
   }
 
   erase(word) {
-    this._validateEraserWord(word);
+    this._validateString(word, "Word to erase must be a string");
 
     const lastIndex = this.paper.lastIndexOf(word);
     if (lastIndex === -1) return;
@@ -73,7 +76,7 @@ class Pencil {
   }
 
   edit(newText) {
-    this._validateEditing(newText);
+    this._validateString(newText, "Text to insert must be a string");
 
     if (this.lastErasedIndex === -1) return;
 
@@ -96,27 +99,16 @@ class Pencil {
     this.lastErasedIndex = -1;
   }
 
-  _validateLength(length) {
-    if (typeof length !== "number" || length < 0) {
-      throw new Error("Length must be a non-negative number");
+  _validateNumber(input, message) {
+    if (typeof input !== "number" || input < 0) {
+      throw new Error(message);
     }
   }
 
-  _validateDurability(durability) {
-    if (typeof durability !== "number" || durability < 0) {
-      throw new Error("Durability must be a non-negative number");
+  _validateString(input, message) {
+    if (typeof input !== "string") {
+      throw new Error(message);
     }
-  }
-
-  _validateEraserWord(word) {
-    if (typeof word !== "string") {
-      throw new Error("Word to erase must be a string");
-    }
-  }
-
-  _validateEditing(newText) {
-    if (typeof newText !== "string")
-      throw new Error("Text to insert must be a string");
   }
 
   _applyDurabilityAndWrite(text) {
