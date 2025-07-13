@@ -249,9 +249,20 @@ describe("Pencil: Eraser Durability", () => {
   });
 
   test("attempting to erase a word that doesn't exist (including when paper is empty) should do nothing", () => {
-  const pencil = new Pencil({ eraserDurability: 10 });
+    const pencil = new Pencil({ eraserDurability: 10 });
 
-  expect(() => pencil.erase("missing")).not.toThrow();
-  expect(pencil.readPaper()).toBe("");
+    expect(() => pencil.erase("missing")).not.toThrow();
+    expect(pencil.readPaper()).toBe("");
+  });
 });
+
+describe("Edit feature", () => {
+  test("writing after an erase fills in the whitespace left behind", () => {
+    const pencil = new Pencil();
+    pencil.write("An apple a day keeps the doctor away");
+    pencil.erase("apple");
+    pencil.edit("onion");
+
+    expect(pencil.readPaper()).toBe("An onion a day keeps the doctor away");
+  });
 });
