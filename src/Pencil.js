@@ -5,25 +5,19 @@ class Pencil {
   }
 
   write(text) {
-    if (typeof text !== "string") {
+    if (!this._isValidText(text)) {
       throw new Error("Text must be a string");
     }
 
-    const degradedResult = this.degradePencil(text);
-
-    this.paper += degradedResult;
+    const written = this._applyDurabilityAndWrite(text);
+    this.paper += written;
   }
 
-  degradePencil(text) {
+  _applyDurabilityAndWrite(text) {
     let result = "";
 
     for (const char of text) {
-      const isLowercase = /[a-z]/.test(char);
-      const isUppercase = /[A-Z]/.test(char);
-
-      let cost = 0;
-      if (isLowercase) cost = 1;
-      else if (isUppercase) cost = 2;
+      const cost = this._getCharCost(char);
 
       if (this.durability < cost) {
         result += " ";
@@ -34,6 +28,16 @@ class Pencil {
     }
 
     return result;
+  }
+
+  _getCharCost(char) {
+    if (/[A-Z]/.test(char)) return 2;
+    if (/[a-z]/.test(char)) return 1;
+    return 0; // whitespace and others
+  }
+
+  _isValidText(text) {
+    return typeof text === "string";
   }
 
   getDurability() {
