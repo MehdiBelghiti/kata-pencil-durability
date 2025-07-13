@@ -111,4 +111,27 @@ describe("Pencil: Sharpening", () => {
 
     expect(pencil.readPaper()).toBe(initialPaper);
   });
+
+  test("pencil length decreases when sharpened", () => {
+    const pencil = new Pencil({ durability: 5, length: 2 });
+
+    pencil.write("TEXT");
+    expect(pencil.getDurability()).toBeLessThan(5);
+
+    pencil.sharpen();
+    expect(pencil.getDurability()).toBe(5);
+    expect(pencil.length).toBe(1);
+
+    // second sharpening will put it at 0 length
+    pencil.write("TEXT");
+    pencil.sharpen();
+    expect(pencil.getDurability()).toBe(5);
+    expect(pencil.length).toBe(0);
+
+    // no more sharpening possible
+    pencil.write("TEXT");
+    pencil.sharpen();
+    expect(pencil.getDurability()).toBeLessThan(5);
+    expect(pencil.length).toBe(0);
+  });
 });
